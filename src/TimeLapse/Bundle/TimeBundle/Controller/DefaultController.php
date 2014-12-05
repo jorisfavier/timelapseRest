@@ -14,7 +14,7 @@ class DefaultController extends Controller
     	if($request->query->get("q") == "Quelle est ton adresse email ?")
     		return new Response('joris.favier@gmail.com');
     	else
-    		return new Response("Salut !!!");
+    		return new Response("NON");
         //return $this->render('TimeLapseTimeBundle:Default:index.html.twig', array('name' => $name));
     }
 }
