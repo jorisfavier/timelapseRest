@@ -1,0 +1,8 @@
+time_lapse_time:
+    resource: "@TimeLapseTimeBundle/Resources/config/routing.yml"
+    prefix:   /
+timelapse_mainrest:
+    resource: "@TimeLapseTimeBundle/Resources/config/routing-rest.yml"
+    type: rest
+    prefix: /api
+

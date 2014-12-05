@@ -1,0 +1,3 @@
+users:
+    resource: TimeLapse\Bundle\TimeBundle\Controller\MainRestController
+    type:     rest

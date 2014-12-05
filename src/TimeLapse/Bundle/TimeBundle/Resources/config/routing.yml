@@ -1,0 +1,5 @@
+time_lapse_time_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: TimeLapseTimeBundle:Default:index }
+
+
