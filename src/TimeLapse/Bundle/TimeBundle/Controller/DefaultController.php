@@ -16,7 +16,7 @@ class DefaultController extends Controller
     	else if($request->query->get("q") == "Es-tu content de participer ? (OUI/NON)" || $request->query->get("q") == "Es-tu que tu as compris le principe du jeu ? (OUI/NON)")
     		return new Response("OUI");
     	else
-    		return new Response("(NON)");
+    		return new Response("NON");
         //return $this->render('TimeLapseTimeBundle:Default:index.html.twig', array('name' => $name));
     }
 }
