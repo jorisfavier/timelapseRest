@@ -63,15 +63,22 @@ class MainRestController extends Controller
         $data = array();
         $data["description"] = "Salles d'ARTEM";
         $links = array();
-        foreach ($res as $room) {
-            if($room->getCapacity() > $request->request->get("capacity")){
-                $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_room', array('id' => $room->getId()), true));
-                $links[] = array('id'=>$room->getId(), 'links'=>$tmp); 
+        if($request->request->get("capacity")){
+            foreach ($res as $room) {
+                if($room->getCapacity() > $request->request->get("capacity")){
+                    $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_room', array('id' => $room->getId()), true));
+                    $links[] = array('id'=>$room->getId(), 'links'=>$tmp); 
+                }
             }
+            $data["data"] = $links;
+            $view->setStatusCode(200)->setData($data);
+            return $view;
         }
-        $data["data"] = $links;
-        $view->setStatusCode(200)->setData($data);
-        return $view;
+        else{
+            $view->setStatusCode(400);
+            return $view;
+        }
+        
 
 
     } 
