@@ -63,9 +63,9 @@ class MainRestController extends Controller
         $data = array();
         $data["description"] = "Salles d'ARTEM";
         $links = array();
-        if(intval($request->request->get("capacity")) >0){
+        if((($request->query->get("capacity") != null) && intval($request->query->get("capacity")) >0) || ($request->query->get("capacity")==null)){
             foreach ($res as $room) {
-                if($room->getCapacity() > $request->request->get("capacity")){
+                if(intval($room->getCapacity()) > intval($request->query->get("capacity"))){
                     $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_room', array('id' => $room->getId()), true));
                     $links[] = array('id'=>$room->getId(), 'links'=>$tmp); 
                 }
@@ -102,7 +102,7 @@ class MainRestController extends Controller
     public function postEnonceAction(Request $request)
     {
         $logger = $this->get('logger');
-        $logger->info($request->request->all());
+        $logger->info($request->query->all());
         $view = FOSView::create();
         $view->setStatusCode(404);
         return $view;
