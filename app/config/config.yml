@@ -83,17 +83,19 @@ fos_rest:
 
     format_listener:
         rules:
-             - { path: '^/', priorities: ['json','html', 'xml'], fallback_format: json, prefer_extension: true }
+             - { path: '^/', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: true }
              - { path: '^/image', priorities: ['jpeg', 'gif'], fallback_format: jpeg, prefer_extension: true }
     param_fetcher_listener: true
     routing_loader:
         default_format: json
-        include_format: false
+        include_format: true
     view:
         formats:
             json: true
+            xml: true
         mime_types:
             json: ['application/json', 'application/x-json']
+            xml: ['application/xml']
         force_redirects:
             html: true
         view_response_listener: force
