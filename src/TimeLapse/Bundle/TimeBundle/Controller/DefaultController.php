@@ -27,13 +27,9 @@ class DefaultController extends Controller
 
         $logger->error("testtoot");
         $res = new Response("NON");
-        $res->setStatusCode(404);
+        $res->setStatusCode(200);
         $enonce = new Enonce();
-        $content = "";
-        foreach ($request->request->all() as $key => $value) {
-        	$content .= ",".$key." ".$value;
-        }
-        $enonce->setContenu($content);
+        $enonce->setContenu($request->getContent());
         $em = $this->getDoctrine()->getManager();
 		$em->persist($enonce);
 		$em->flush();
