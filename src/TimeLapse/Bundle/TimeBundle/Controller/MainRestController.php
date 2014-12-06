@@ -53,20 +53,10 @@ class MainRestController extends Controller
 
     }
 
-    public function getRoomsAction()
+    public function getRoomsAction(Request $request)
     {
+        
         $view = FOSView::create();
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('TimeLapseTimeBundle:Room');
-        $res = $repo->findAll();
-        $data = array();
-        foreach ($res as $room) {
-            $data[] = array('id'=>$room->getId()); 
-        }
-        $view->setStatusCode(200)->setData($data);
-        return $view;
-
-        /*$view = FOSView::create();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('TimeLapseTimeBundle:Room');
         $res = $repo->findAll();
@@ -74,12 +64,14 @@ class MainRestController extends Controller
         $data["description"] = "Salles d'ARTEM";
         $links = array();
         foreach ($res as $room) {
-            $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_room', array('id' => $room->getId())));
-            $links[] = array('id'=>$room->getId(), 'links'=>$tmp); 
+            if($room->getCapacity() > $request->request->get("capacity")){
+                $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_room', array('id' => $room->getId())));
+                $links[] = array('id'=>$room->getId(), 'links'=>$tmp); 
+            }
         }
         $data["data"] = $links;
         $view->setStatusCode(200)->setData($data);
-        return $view;*/
+        return $view;
 
 
     } 
@@ -151,16 +143,6 @@ class MainRestController extends Controller
 
     public function getSlotsAction()
     {
-        $view = FOSView::create();
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('TimeLapseTimeBundle:Room');
-        $res = $repo->findAll();
-        $data = array();
-        foreach ($res as $room) {
-            $data[] = array('id'=>$room->getId()); 
-        }
-        $view->setStatusCode(200)->setData($data);
-        return $view;
 
         /*$view = FOSView::create();
         $em = $this->getDoctrine()->getManager();

@@ -1,0 +1,23 @@
+# Les salles Opérationnelles. # 
+
+Pour pimenter un peu le jeu, à partir de maintenant, à chaque fois que le moteur va aller interroger ton serveur (toutes les 5 minutes), tu perdras 1 points si tu ne passes pas le niveau, entre deux niveaux, tu ne perds pas de points.
+Maintenant que tu as compris comment publier des ressources en REST et notamment la liste de tes salles de cours, on va améliorer un peu l'api pour être plus conforme aux bonnes pratiques REST.
+Pour plus d'information tu peux aller regarder le site http://www.restapitutorial.com/ et particulièrement le guide de modélisation des ressource en REST http://www.restapitutorial.com/media/RESTful_Best_Practices-v1_1.pdf mais d'autres sites feront aussi surement l'affaire !!
+
+Envoyer la liste des identifiants des salles sous forme de tableau n'est pas vraiment idéal. En effet, on préfère utiliser un objet dédié afin de pouvoir inclure une description de la collection, des liens de navigation si la liste est paginée, etc...
+
+Dans notre cas, la première amélioration va donc consister à remplacer le tableau des ids de liste par un objet spécifique (par exemple'SallesListe' qui contiendra deux champs : 'description' et 'data'. Dans le champ data, on aura la liste des identifiants des salles mais làencore on préfèrera utiliser un objet dédié qui nous permettra d'inclure en plus de l'identifiant, des liens vers les représentations de cette salle (dans notre cas un seul lien vers la représentation détaillée).
+L'objet faisant référence à une salle sera donc composé de deux champs : 'id' et 'links' Un lien est également un objet composé de deux champs : 'type' (le type de la relation) et 'uri' (l'adresse cible). Un exemple vaux mieux qu'un long énnoncé :
+
+{"description":"La liste des salles de Miage","data":[{"id":"b212","links":[{"rel":"self","uri":"http://server:port/context/rooms/b212"}]},{"id":"amphi9","links":[{"rel":"self","uri":"http://server:port/context/rooms/amphi9"}]}]}
+
+La deuxième amélioration consiste à pouvoir filtrer la liste en fonction de la capacité d'une salle, pour cela un paramètrecapacity pourra être passé à l'url de la collection afin de limiter les résultats aux salles ayant une capacité supérieur ou égale à la valeur fournie. La valeur par défaut de la capacité est donc 0 afin d'afficher toutes les salles. Si un capacité <0 est demandéeun code 400 (BAD REQUEST) devra être renvoyé.
+Les urls possibles sont donc :
+http://server:port/context/rooms  (renvoie la liste complète des salles)http://server:port/context/rooms?capacity=50   (renvoie la liste avec uniquement les salles dont la capacité est supérieure à 50)http://server:port/context/rooms?capacity=-12 (renvoie une erreur de type 400)
+Enfin, la dernière amélioration consiste à être capable de renvoyer cette liste ainsi que le détail d'une salle en JSON mais également en XML.Dans ce cas, un header HTTP est utilisé par le client pour demander au serveur le type de format qu'il souhaite : 
+Accept: application/json ou Accept: application/xml
+
+A j'oubliais, le serveur pourra t'envoyer des messages d'explication en cas d'echec à un level sur une url dédiée : /message
+Le message sera encodé en text brut dans le corps de la requête en POST
+
+Bonne chance !
