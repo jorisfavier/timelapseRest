@@ -63,7 +63,7 @@ class MainRestController extends Controller
         $data = array();
         $data["description"] = "Salles d'ARTEM";
         $links = array();
-        if($request->request->get("capacity")){
+        if(intval($request->request->get("capacity")) >0){
             foreach ($res as $room) {
                 if($room->getCapacity() > $request->request->get("capacity")){
                     $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_room', array('id' => $room->getId()), true));
