@@ -1,0 +1,18 @@
+TimeLapse\Bundle\TimeBundle\Entity\Room:
+    type: entity
+    table: null
+    repositoryClass: TimeLapse\Bundle\TimeBundle\Entity\RoomRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        description:
+            type: text
+        capacity:
+            type: integer
+        projector:
+            type: boolean
+    lifecycleCallbacks: {  }
