@@ -1,0 +1,19 @@
+
+# Où sont les salles ? # 
+
+J'aimerais connaitre la liste des salles dans lesquelles tu as cours.
+Pour cela je te propose de publier cette liste au format JSON sur l'URL /rooms.
+Cette liste ne contiendra que les identifiants des salles (les numéros) et sera donc de la forme :
+
+[{"id":"b121"},  {"id":"c181"}, {"id":"1213"}]
+
+Néanmoins j'aimerais pouvoir avoir un peu plus d'informations sur les salles et toujours au format JSON. Pour cela je
+devrais pouvoir interroger une url du type /rooms/b121 pour pouvoir récupérer la description complète de la salle.
+Dans cette description tu es libre de mettre toutes les informations que tu souhaites (la surface, l'efficacité de la ventilation,
+la résolution du rétroprojecteur, si tu as eu des relations marquantes dans cette salle...) mais je voudrais au minium une description
+de la salle (description) ainsi que le nombre de places assises (capacity) et la présence ou non d'un projecteur vidéo (projector).
+Tout ceci devrait donner quelque chose du genre :
+
+{"id": "b121", "description": "La salle de mon enfance", "capacity": "80000", "projector": "false"}
+
+Bonne chance !
