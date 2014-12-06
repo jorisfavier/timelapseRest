@@ -36,4 +36,20 @@ class DefaultController extends Controller
         return $res;
         
     }
+
+    public function messageAction(Request $request){
+    	$logger = $this->get('logger');
+        $logger->info($request->request->all());
+
+        $logger->error("testtoot");
+        $res = new Response("NON");
+        $res->setStatusCode(404);
+        $enonce = new Enonce();
+        $enonce->setContenu($request->getContent());
+        $em = $this->getDoctrine()->getManager();
+		$em->persist($enonce);
+		$em->flush();
+        return $res;
+        
+    }
 }

@@ -13,7 +13,7 @@ use TimeLapse\Bundle\TimeBundle\Entity\Room;
 
 class MainRestController extends Controller
 {
-     public function optionsRoomsAction()
+    public function optionsRoomsAction()
     {
         $view = FOSView::create();
         $view->setStatusCode(200);
@@ -108,5 +108,76 @@ class MainRestController extends Controller
         $view->setStatusCode(404);
         return $view;
     }*/
+
+    public function optionsSlotsAction()
+    {
+        $view = FOSView::create();
+        $view->setStatusCode(200);
+        return $view;
+    }
+
+     public function optionsSlotAction()
+    {
+        $view = FOSView::create();
+        $view->setStatusCode(200);
+        return $view;
+    }
+
+    public function getSlotAction($id)
+    {
+        $view = FOSView::create();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TimeLapseTimeBundle:Room');
+        $res = $repo->findOneById($id);
+        if(is_object($res))
+            $view->setStatusCode(200)->setData($res);
+        else
+            $view->setStatusCode(404);
+        return $view;
+    } 
+
+    public function postSlotAction()
+    {
+
+    }
+
+    public function deleteSlotAction($id){
+
+    }
+
+    public function putSlotAction($id){
+
+    }
+
+    public function getSlotsAction()
+    {
+        $view = FOSView::create();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TimeLapseTimeBundle:Room');
+        $res = $repo->findAll();
+        $data = array();
+        foreach ($res as $room) {
+            $data[] = array('id'=>$room->getId()); 
+        }
+        $view->setStatusCode(200)->setData($data);
+        return $view;
+
+        /*$view = FOSView::create();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TimeLapseTimeBundle:Room');
+        $res = $repo->findAll();
+        $data = array();
+        $data["description"] = "Salles d'ARTEM";
+        $links = array();
+        foreach ($res as $room) {
+            $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_room', array('id' => $room->getId())));
+            $links[] = array('id'=>$room->getId(), 'links'=>$tmp); 
+        }
+        $data["data"] = $links;
+        $view->setStatusCode(200)->setData($data);
+        return $view;*/
+
+
+    }
 
 }

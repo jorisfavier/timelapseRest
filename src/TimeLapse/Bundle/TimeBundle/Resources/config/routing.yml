@@ -6,5 +6,10 @@ time_lapse_time_enonce:
     defaults: { _controller: TimeLapseTimeBundle:Default:enonce }
     requirements:
         _method:  POST
+time_lapse_time_message:
+    path:     /message
+    defaults: { _controller: TimeLapseTimeBundle:Default:message }
+    requirements:
+        _method:  POST
 
 
