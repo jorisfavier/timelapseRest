@@ -19,4 +19,13 @@ class DefaultController extends Controller
     		return new Response("NON");
         //return $this->render('TimeLapseTimeBundle:Default:index.html.twig', array('name' => $name));
     }
+
+    public function enonceAction(Request $request, $id){
+    	$logger = $this->get('logger');
+        $logger->info($request->request->all());
+        $res = new Response("NON");
+        $res->setStatusCode(404);
+        return $res;
+        
+    }
 }

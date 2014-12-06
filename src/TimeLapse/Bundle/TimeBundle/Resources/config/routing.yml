@@ -1,5 +1,10 @@
 time_lapse_time_homepage:
     path:     /
     defaults: { _controller: TimeLapseTimeBundle:Default:index }
+time_lapse_time_enonce:
+    path:     /enonce/{id}
+    defaults: { _controller: TimeLapseTimeBundle:Default:enonce }
+    requirements:
+        _method:  POST
 
 

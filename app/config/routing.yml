@@ -4,5 +4,4 @@ time_lapse_time:
 timelapse_mainrest:
     resource: "@TimeLapseTimeBundle/Resources/config/routing-rest.yml"
     type: rest
-    prefix: /api
 
