@@ -10,6 +10,7 @@ TimeLapse\Bundle\TimeBundle\Entity\Enonce:
                 strategy: AUTO
     fields:
         contenu:
-            type: string
-            length: 255
+            type: text
+            fixed: false
+            nullable: false
     lifecycleCallbacks: {  }
