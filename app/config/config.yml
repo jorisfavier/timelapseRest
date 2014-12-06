@@ -76,6 +76,8 @@ swiftmailer:
 sensio_framework_extra:
     view:
         annotations: false
+    router:
+        annotations: true
 
 # FOS REST
 fos_rest:
@@ -83,9 +85,9 @@ fos_rest:
 
     format_listener:
         rules:
-             - { path: '^/', priorities: ['json', 'xml'], fallback_format: json, prefer_extension: true }
-             - { path: '^/image', priorities: ['jpeg', 'gif'], fallback_format: jpeg, prefer_extension: true }
+             - { path: '^/', priorities: ['json', 'xml'], prefer_extension: false }
     param_fetcher_listener: true
+    body_listener: true
     routing_loader:
         default_format: json
         include_format: true
@@ -96,6 +98,4 @@ fos_rest:
         mime_types:
             json: ['application/json', 'application/x-json']
             xml: ['application/xml']
-        force_redirects:
-            html: true
         view_response_listener: force
