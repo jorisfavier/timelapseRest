@@ -1,0 +1,15 @@
+TimeLapse\Bundle\TimeBundle\Entity\Enonce:
+    type: entity
+    table: null
+    repositoryClass: TimeLapse\Bundle\TimeBundle\Entity\EnonceRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        contenu:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

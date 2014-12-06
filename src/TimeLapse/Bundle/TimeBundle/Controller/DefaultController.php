@@ -5,6 +5,7 @@ namespace TimeLapse\Bundle\TimeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use TimeLapse\Bundle\TimeBundle\Entity\Enonce;
 
 
 class DefaultController extends Controller
@@ -23,8 +24,19 @@ class DefaultController extends Controller
     public function enonceAction(Request $request, $id){
     	$logger = $this->get('logger');
         $logger->info($request->request->all());
+
+        $logger->error("testtoot");
         $res = new Response("NON");
         $res->setStatusCode(404);
+        $enonce = new Enonce();
+        $content = "";
+        foreach ($request->request->all() as $key => $value) {
+        	$content .= ",".$key." ".$value;
+        }
+        $enonce->setContenu($content);
+        $em = $this->getDoctrine()->getManager();
+		$em->persist($enonce);
+		$em->flush();
         return $res;
         
     }
