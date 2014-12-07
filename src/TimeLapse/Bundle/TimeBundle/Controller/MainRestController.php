@@ -172,11 +172,11 @@ class MainRestController extends Controller
         return $view;
     }
 
-    public function putSlotAction($id){
+    public function putSlotAction($id,Request $request){
         $view = FOSView::create();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('TimeLapseTimeBundle:Slot');
-        $slot = $repo->findOneById($id);
+        $slot = $repo->findId($id);
         $slot->setRoom($request->request->get("room"));
         $slot->setTitle($request->request->get("title"));
         $slot->setDescription($request->request->get("description"));

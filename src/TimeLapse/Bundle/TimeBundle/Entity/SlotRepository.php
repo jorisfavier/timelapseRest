@@ -12,4 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class SlotRepository extends EntityRepository
 {
+	public function findId($search)
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select("c")
+		->from('TimeLapseTimeBundle:Slot',"c")
+		->where('c.id like :search')
+		->setParameter("search","%".$search."%");
+		//var_dump($qb->getQuery()->getSQL());
+		//var_dump($search);
+		return $qb->getQuery()->getResult()[0];
+	}
+
+	public function findlast()
+	{
+		$qb = $this->_em->createQueryBuilder();
+		$qb->select("c")
+		->from('TimeLapseTimeBundle:Slot',"c")
+		->where('c.id like :search')
+		->setParameter("search","%".$search."%");
+		//var_dump($qb->getQuery()->getSQL());
+		//var_dump($search);
+		//var_dump(get_class($qb->getQuery()->getResult()));die();
+		return $qb->getQuery()->getResult();
+	}
+
 }
