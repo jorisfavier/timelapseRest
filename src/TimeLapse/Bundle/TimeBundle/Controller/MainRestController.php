@@ -184,12 +184,11 @@ class MainRestController extends Controller
         $slot->setStop($request->request->get("stop"));
         $em->persist($slot);
         $em->flush();
-        $view->setStatusCode(200);
-        $view->setLocation($this->generateUrl('get_slot', array('id' => $slot->getId()), true));
+        $view->setStatusCode(200)->setData("cool");
         return $view;
     }
 
-    public function getSlotsAction()
+    public function getSlotsAction(Request $request)
     {
 
         $view = FOSView::create();
@@ -200,8 +199,10 @@ class MainRestController extends Controller
         $data["description"] = "liste des slots";
         $links = array();
         foreach ($res as $slot) {
-            $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_slot', array('id' => $slot->getId()), true));
-            $links[] = array('id'=>$slot->getId(), 'links'=>$tmp); 
+            if($request->query->get("room") == $slot->getRoom()){
+                $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_slot', array('id' => $slot->getId()), true));
+                $links[] = array('id'=>$slot->getId(), 'links'=>$tmp);
+            }
         }
         $data["data"] = $links;
         $view->setStatusCode(200)->setData($data);
