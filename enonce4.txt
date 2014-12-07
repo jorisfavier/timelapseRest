@@ -1,0 +1,15 @@
+
+# Bientôt la fin. # 
+
+C'est parfait, je penses que tu commences à ressentir les effets de l'altitude : fatigue, essouflement, jambes lourde ? car tu approches du sommet...
+
+Pour ce dernier level je te propose de me donner ton code source. Il s'agit de faire un fichier .tar.gz de ton code source que je pourrai venir télécharger sur une url de ton serveur. Mais attention, données sensibles ! il ne s'agit pas que quelqu'un d'autre vienne chercher ce code.
+Pour protéger l'url de download, nous allons utiliser un OneTimePassword. Je vais donc générer un mot de passe unique que tu devras récupérer sur mon serveur à l'url http://timelapse-jayblanc.rhcloud.com/rest/players/{nickname}/digest ensuite tu devras utiliser ce digest pour créer une url de download du fichier sur ton serveur : http://serveur:port/context/files/{digest} 
+
+Le Digest est calculé à partir des données de ton utilisateur ce qui fait qu'à chaque fois que le serveur va retenter de télécharger tes sources, le digest aura changé puisque tu aura perdu 1 points. Il faut donc que tu vérifies la validité du digest pour ne répondre que sur celui qui est valide au moment ou mon serveur voudra télécharger le fichier tar.gz.
+
+Tu peux me faire confiance pour tester une batterie de digest invalides afin de vérifier que tu utilises bien le dernier digest  et pour que je puisse considérer que tu as gagné !!
+
+Dernière contrainte, le nom du fichier devra être {nickname}.tar.gz
+
+Bonne chance !

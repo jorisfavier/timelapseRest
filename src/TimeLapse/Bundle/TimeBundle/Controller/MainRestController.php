@@ -211,4 +211,34 @@ class MainRestController extends Controller
 
     }
 
+    public function getFileAction($id){
+        $view = FOSView::create();
+        $ch = curl_init("http://timelapse-jayblanc.rhcloud.com/rest/players/jorisFavier/digest");
+
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+
+        $result = curl_exec($ch);
+        curl_close($ch);
+        if($result == $id){
+            $filename = "/Users/joris/Documents/RestWeb.zip";
+            $response = new Response();
+
+            // Set headers
+            $response->headers->set('Cache-Control', 'private');
+            $response->headers->set('Content-type', mime_content_type($filename));
+            $response->headers->set('Content-Disposition', 'attachment; filename="' . basename($filename) . '";');
+            $response->headers->set('Content-length', filesize($filename));
+
+            // Send headers before outputting anything
+            $response->sendHeaders();
+
+            $response->setContent(readfile($filename));
+            return $response;
+        }
+        $view->setStatusCode(404);
+        return $view;
+
+    }
+
 }
