@@ -1,0 +1,14 @@
+
+# Un peu d'activité. # 
+
+Je voudrais maintenant pouvoir connaitre ton emploi du temps. Pour cela je te propose de créer une autre ressource 'Slot'. Un slot est composé de 5 champs : 'id', 'title', 'description', 'room', 'start' et 'stop'. Tous sont des chaines de charactères mais les champs 'start' et 'stop' doivent avoir le format d'une date de type yyyy-MM-dd HH:mm (2013-12-25 21:30)
+Comme pout les salles, il faut founir un objet représentant toute la collection des slots sur l'url /slots. Cette collection est identique à celle des salles avec un champ data contenant un liste de références vers les slots de la collection et un champ avec la description de la collection.
+Par contre, je voudrais pouvoir créer moi même des slots dans ton emploi du temps et il faudra donc qu'en envoyant une requête POST sur l'url de la collection avec un objet JSON dans le corps de la requête, je puisse créer un nouveau slot. L'id du slot sera généré à la création et si la création a fonctionné, je voudrais recevoir un code 201 (Created) avec un entête 'Location' pointant sur l'url du slot créé : http://server:port/context/slots/{id généré}.
+
+Dans le même esprit il faudra que je puisse consulter, modifier et supprimer un slot depuis son url propre. Ainsi un GET sur l'url /slots/{slotid} me renverra une représentation JSON du slot, un PUT sur /slots/{id} avec la nouvelle représentation JSON dans le corps de la requêt me permettra de mettre à jour le slot (attention on ne change pas l'id) et un DELETE sur /slots/{id} devrait me permettre de supprimer ce slot.
+
+Enfin je voudrais pouvoir filtrer la collection de slots en fonction de la salle si bien que l'utilisation du paramètre 'room' sur l'url /slots me donnera un sous ensemble de la collection avec les slots de cette salle. (/slots?room=a121) 
+
+Comme les ressources slot et room sont liées, je voudrais pouvoir également avoir la liste des slots d'une salle depuis son url à elle /rooms/{roomid}/slots.
+
+Bonne chance !

@@ -25,7 +25,6 @@ class DefaultController extends Controller
     	$logger = $this->get('logger');
         $logger->info($request->request->all());
 
-        $logger->error("testtoot");
         $res = new Response("NON");
         $res->setStatusCode(200);
         $enonce = new Enonce();

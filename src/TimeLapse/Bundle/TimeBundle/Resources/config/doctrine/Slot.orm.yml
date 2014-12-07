@@ -1,0 +1,24 @@
+TimeLapse\Bundle\TimeBundle\Entity\Slot:
+    type: entity
+    table: null
+    repositoryClass: TimeLapse\Bundle\TimeBundle\Entity\SlotRepository
+    id:
+        id:
+            type: string
+            id: true
+    fields:
+        room:
+            type: string
+            length: 255
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        start:
+            type: string
+            length: 255
+        stop:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

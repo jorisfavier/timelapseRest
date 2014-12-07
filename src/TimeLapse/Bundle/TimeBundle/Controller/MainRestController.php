@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TimeLapse\Bundle\TimeBundle\Entity\Enonce;
 use TimeLapse\Bundle\TimeBundle\Entity\Room;
+use TimeLapse\Bundle\TimeBundle\Entity\Slot;
+
 
 
 class MainRestController extends Controller
@@ -126,7 +128,7 @@ class MainRestController extends Controller
     {
         $view = FOSView::create();
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('TimeLapseTimeBundle:Room');
+        $repo = $em->getRepository('TimeLapseTimeBundle:Slot');
         $res = $repo->findOneById($id);
         if(is_object($res))
             $view->setStatusCode(200)->setData($res);
@@ -135,36 +137,75 @@ class MainRestController extends Controller
         return $view;
     } 
 
-    public function postSlotAction()
+    public function postSlotAction(Request $request)
     {
-
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 3; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        $view = FOSView::create();
+        $slot = new Slot();
+        $slot->setId($randomString);
+        $slot->setRoom($request->request->get("room"));
+        $slot->setTitle($request->request->get("title"));
+        $slot->setDescription($request->request->get("description"));
+        $slot->setStart($request->request->get("start"));
+        $slot->setStop($request->request->get("stop"));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($slot);
+        $em->flush();
+        $view->setStatusCode(201);
+        $view->setLocation($this->generateUrl('get_slot', array('id' => $slot->getId()), true));
+        return $view;
     }
 
     public function deleteSlotAction($id){
-
+        $view = FOSView::create();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TimeLapseTimeBundle:Slot');
+        $slot = $repo->findOneById($id);
+        $em->remove($slot);
+        $em->flush();
+        $view->setStatusCode(200);
+        return $view;
     }
 
     public function putSlotAction($id){
-
+        $view = FOSView::create();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TimeLapseTimeBundle:Slot');
+        $slot = $repo->findOneById($id);
+        $slot->setRoom($request->request->get("room"));
+        $slot->setTitle($request->request->get("title"));
+        $slot->setDescription($request->request->get("description"));
+        $slot->setStart($request->request->get("start"));
+        $slot->setStop($request->request->get("stop"));
+        $em->persist($slot);
+        $em->flush();
+        $view->setStatusCode(200);
+        $view->setLocation($this->generateUrl('get_slot', array('id' => $slot->getId()), true));
+        return $view;
     }
 
     public function getSlotsAction()
     {
 
-        /*$view = FOSView::create();
+        $view = FOSView::create();
         $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository('TimeLapseTimeBundle:Room');
+        $repo = $em->getRepository('TimeLapseTimeBundle:Slot');
         $res = $repo->findAll();
         $data = array();
-        $data["description"] = "Salles d'ARTEM";
+        $data["description"] = "liste des slots";
         $links = array();
-        foreach ($res as $room) {
-            $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_room', array('id' => $room->getId())));
-            $links[] = array('id'=>$room->getId(), 'links'=>$tmp); 
+        foreach ($res as $slot) {
+            $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_slot', array('id' => $slot->getId()), true));
+            $links[] = array('id'=>$slot->getId(), 'links'=>$tmp); 
         }
         $data["data"] = $links;
         $view->setStatusCode(200)->setData($data);
-        return $view;*/
+        return $view;
 
 
     }
