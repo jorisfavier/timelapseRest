@@ -199,7 +199,7 @@ class MainRestController extends Controller
         $data["description"] = "liste des slots";
         $links = array();
         foreach ($res as $slot) {
-            if($request->query->get("room") == $slot->getRoom()){
+            if(($request->query->get("room") != null && $request->query->get("room") == $slot->getRoom()) || $request->query->get("room") == null ){
                 $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_slot', array('id' => $slot->getId()), true));
                 $links[] = array('id'=>$slot->getId(), 'links'=>$tmp);
             }
