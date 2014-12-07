@@ -4,10 +4,9 @@ TimeLapse\Bundle\TimeBundle\Entity\Room:
     repositoryClass: TimeLapse\Bundle\TimeBundle\Entity\RoomRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
-            generator:
-                strategy: AUTO
+            
     fields:
         description:
             type: text

@@ -3,9 +3,13 @@
 namespace TimeLapse\Bundle\TimeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\RestBundle\View\View AS FOSView; 
+use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use TimeLapse\Bundle\TimeBundle\Entity\Enonce;
+use TimeLapse\Bundle\TimeBundle\Entity\Room;
+use TimeLapse\Bundle\TimeBundle\Entity\Slot;
 
 
 class DefaultController extends Controller
@@ -51,4 +55,25 @@ class DefaultController extends Controller
         return $res;
         
     }
+
+    public function roomslotAction($id){
+		$view = FOSView::create();
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('TimeLapseTimeBundle:Slot');
+        $res = $repo->findOneBy(array("room" => $id));
+        if(is_object($res))
+            $view->setStatusCode(200)->setData($res);
+        else
+            $view->setStatusCode(404);
+        return $view;    	
+
+
+    }
+
+
+
+
+
+
+
 }

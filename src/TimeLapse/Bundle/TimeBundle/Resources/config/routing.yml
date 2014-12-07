@@ -11,5 +11,10 @@ time_lapse_time_message:
     defaults: { _controller: TimeLapseTimeBundle:Default:message }
     requirements:
         _method:  POST
+time_lapse_time_merde:
+    path:     /rooms/{id}/slots
+    defaults: { _controller: TimeLapseTimeBundle:Default:roomslot }
+    requirements:
+        _method:  GET
 
 
