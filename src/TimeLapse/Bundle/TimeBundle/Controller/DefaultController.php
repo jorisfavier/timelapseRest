@@ -60,11 +60,14 @@ class DefaultController extends Controller
 		$view = FOSView::create();
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository('TimeLapseTimeBundle:Slot');
-        $res = $repo->findOneBy(array("room" => $id));
-        if(is_object($res))
-            $view->setStatusCode(200)->setData($res);
-        else
-            $view->setStatusCode(404);
+        $slot = $repo->findOneBy(array("room" => $id));
+        $data = array();
+        $data["description"] = "liste des slots";
+        $links = array();
+        $tmp = array('rel'=>"self","uri"=>$this->generateUrl('get_slot', array('id' => $slot->getId()), true));
+        $links[] = array('id'=>$slot->getId(), 'links'=>$tmp);
+        $data["data"] = $links;
+        $view->setStatusCode(200)->setData($data);
         return $view;    	
 
 
